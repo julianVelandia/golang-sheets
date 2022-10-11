@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/julianVelandia/GolangSheets/src/api/app/dependence"
+	"github.com/julianVelandia/golang-sheets/src/api/app/dependence"
 )
 
 func NewRouter() *gin.Engine {

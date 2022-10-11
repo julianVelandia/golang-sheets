@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/julianVelandia/GolangSheets/src/api/handler/ping/contract"
+	"github.com/julianVelandia/golang-sheets/src/api/handler/ping/contract"
 )
 
 type Handler struct{}
@@ -19,4 +19,3 @@ func (h Handler) Handler(ginCTX *gin.Context) {
 	}
 	ginCTX.JSON(http.StatusOK, pong)
 }
-

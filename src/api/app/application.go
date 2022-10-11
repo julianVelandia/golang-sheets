@@ -3,7 +3,7 @@ package app
 import (
 	"fmt"
 
-	"github.com/julianVelandia/GolangSheets/src/api/app/config"
+	"github.com/julianVelandia/golang-sheets/src/api/app/config"
 )
 
 func StartApp() error {
@@ -16,5 +16,5 @@ func logEnvironment() {
 	fmt.Println("GO_PORT: ", config.GetConfig().Port())
 	fmt.Println("GO_SCOPE: ", config.GetConfig().Port())
 
-	fmt.Println("Starting GolangSheets")
+	fmt.Println("Starting golang-sheets")
 }

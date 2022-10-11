@@ -1,12 +1,12 @@
 package dependence
 
 import (
-	useCaseCells "github.com/julianVelandia/GolangSheets/internal/cell/core/usecase/getcell"
-	RepositoryRead "github.com/julianVelandia/GolangSheets/internal/cell/infrastructure/repository/sheets/cell"
-	"github.com/julianVelandia/GolangSheets/internal/platform/sheets"
-	handlerGetCells "github.com/julianVelandia/GolangSheets/src/api/handler/getcell"
-	mapperGetCells "github.com/julianVelandia/GolangSheets/src/api/handler/getcell/mapper"
-	handlerPing "github.com/julianVelandia/GolangSheets/src/api/handler/ping"
+	useCaseCells "github.com/julianVelandia/golang-sheets/internal/cell/core/usecase/getcell"
+	RepositoryRead "github.com/julianVelandia/golang-sheets/internal/cell/infrastructure/repository/sheets/cell"
+	"github.com/julianVelandia/golang-sheets/internal/platform/sheets"
+	handlerGetCells "github.com/julianVelandia/golang-sheets/src/api/handler/getcell"
+	mapperGetCells "github.com/julianVelandia/golang-sheets/src/api/handler/getcell/mapper"
+	handlerPing "github.com/julianVelandia/golang-sheets/src/api/handler/ping"
 )
 
 type HandlerContainer struct {

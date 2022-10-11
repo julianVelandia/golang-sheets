@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	ErrorUseCase "github.com/julianVelandia/GolangSheets/internal/cell/core/error"
-	"github.com/julianVelandia/GolangSheets/internal/platform/constant"
-	"github.com/julianVelandia/GolangSheets/internal/platform/log"
-	sheet "github.com/julianVelandia/GolangSheets/internal/platform/sheets"
+	ErrorUseCase "github.com/julianVelandia/golang-sheets/internal/cell/core/error"
+	"github.com/julianVelandia/golang-sheets/internal/platform/constant"
+	"github.com/julianVelandia/golang-sheets/internal/platform/log"
+	sheet "github.com/julianVelandia/golang-sheets/internal/platform/sheets"
 )
 
 const (

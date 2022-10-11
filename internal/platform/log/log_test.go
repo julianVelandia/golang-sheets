@@ -2,8 +2,8 @@ package log_test
 
 import (
 	"fmt"
-	"github.com/julianVelandia/GolangSheets/internal/platform/constant"
-	"github.com/julianVelandia/GolangSheets/internal/platform/log"
+	"github.com/julianVelandia/golang-sheets/internal/platform/constant"
+	"github.com/julianVelandia/golang-sheets/internal/platform/log"
 	"testing"
 )
 

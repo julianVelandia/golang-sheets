@@ -3,11 +3,11 @@ package getcell
 import (
 	"context"
 	"fmt"
-	"github.com/julianVelandia/GolangSheets/internal/cell/core/entity"
-	ErrorUseCase "github.com/julianVelandia/GolangSheets/internal/cell/core/error"
-	"github.com/julianVelandia/GolangSheets/internal/cell/core/query"
-	"github.com/julianVelandia/GolangSheets/internal/platform/constant"
-	"github.com/julianVelandia/GolangSheets/internal/platform/log"
+	"github.com/julianVelandia/golang-sheets/internal/cell/core/entity"
+	ErrorUseCase "github.com/julianVelandia/golang-sheets/internal/cell/core/error"
+	"github.com/julianVelandia/golang-sheets/internal/cell/core/query"
+	"github.com/julianVelandia/golang-sheets/internal/platform/constant"
+	"github.com/julianVelandia/golang-sheets/internal/platform/log"
 )
 
 const (

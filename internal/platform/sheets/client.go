@@ -11,9 +11,9 @@ import (
 	"log"
 	"os"
 
-	ErrorUseCase "github.com/julianVelandia/GolangSheets/internal/cell/core/error"
-	"github.com/julianVelandia/GolangSheets/internal/platform/constant"
-	logPlatform "github.com/julianVelandia/GolangSheets/internal/platform/log"
+	ErrorUseCase "github.com/julianVelandia/golang-sheets/internal/cell/core/error"
+	"github.com/julianVelandia/golang-sheets/internal/platform/constant"
+	logPlatform "github.com/julianVelandia/golang-sheets/internal/platform/log"
 )
 
 const (

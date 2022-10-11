@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/julianVelandia/GolangSheets/internal/platform/constant"
-	"github.com/julianVelandia/GolangSheets/internal/platform/environment"
+	"github.com/julianVelandia/golang-sheets/internal/platform/constant"
+	"github.com/julianVelandia/golang-sheets/internal/platform/environment"
 )
 
 type Config struct {

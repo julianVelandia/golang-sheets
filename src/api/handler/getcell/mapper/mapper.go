@@ -1,9 +1,9 @@
 package mapper
 
 import (
-	"github.com/julianVelandia/GolangSheets/internal/cell/core/entity"
-	"github.com/julianVelandia/GolangSheets/internal/cell/core/query"
-	"github.com/julianVelandia/GolangSheets/src/api/handler/getcell/contract"
+	"github.com/julianVelandia/golang-sheets/internal/cell/core/entity"
+	"github.com/julianVelandia/golang-sheets/internal/cell/core/query"
+	"github.com/julianVelandia/golang-sheets/src/api/handler/getcell/contract"
 )
 
 type HandlerMapper struct{}

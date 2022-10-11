@@ -2,7 +2,7 @@ package log
 
 import (
 	"fmt"
-	"github.com/julianVelandia/GolangSheets/internal/platform/constant"
+	"github.com/julianVelandia/golang-sheets/internal/platform/constant"
 	"sort"
 	"strings"
 )
