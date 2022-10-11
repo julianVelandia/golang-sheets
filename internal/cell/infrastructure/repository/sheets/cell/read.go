@@ -17,7 +17,7 @@ const (
 	errorReadRepository log.LogsMessage = "error in the use case, when read repository"
 	entityType          string          = "read_repository"
 	pathCredentials     string          = "internal/platform/sheets/environment/credentials.json"
-	pathSpreadsheetID   string          = "1y8rAuDeYfcT7jx6O1KbC_DwO68SeWeoXkeUdYVMCV_0"
+	pathSpreadsheetID   string          = "internal/platform/sheets/environment/spreadsheetID.json"
 	layer               string          = "use_case_get_Cells"
 )
 

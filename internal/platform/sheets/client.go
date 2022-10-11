@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/julianVelandia/golang-sheets/internal/platform/number"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/option"
@@ -15,7 +16,6 @@ import (
 	"github.com/julianVelandia/golang-sheets/internal/cell/core/query"
 	"github.com/julianVelandia/golang-sheets/internal/platform/constant"
 	logPlatform "github.com/julianVelandia/golang-sheets/internal/platform/log"
-	"github.com/julianVelandia/golang-sheets/internal/platform/number"
 	"github.com/julianVelandia/golang-sheets/internal/platform/sheets/model"
 )
 
@@ -200,9 +200,9 @@ func (c *Client) Read(ctx context.Context, credentialsPath, spreadsheetIDPath st
 					CellPosition: fmt.Sprintf("%v%v", currentColumn, currentRow),
 					Information:  fmt.Sprintf("%v", val),
 				})
-				currentColumn = number.UpdateChar(currentColumn)
 				currentRow++
 			}
+			currentColumn = number.UpdateChar(currentColumn)
 		}
 		return response, nil
 	}

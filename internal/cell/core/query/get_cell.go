@@ -17,7 +17,7 @@ func (g GetCells) Value() string {
 	return fmt.Sprintf(
 		`%s!%s:%s`,
 		g.SheetName,
-		strings.ToUpper(strings.TrimSpace(g.StartColumn))+string(rune(g.StartRow)),
-		strings.ToUpper(strings.TrimSpace(g.EndColumn))+string(rune(g.EndRow)),
+		fmt.Sprintf("%v%v", strings.ToUpper(g.StartColumn), g.StartRow),
+		fmt.Sprintf("%v%v", strings.ToUpper(g.EndColumn), g.EndRow),
 	)
 }

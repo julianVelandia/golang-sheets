@@ -14,8 +14,8 @@ func NewRouter() *gin.Engine {
 }
 
 func configureMappings(router *gin.Engine, handlers dependence.HandlerContainer) {
-	apiGroup := router.Group("eureka")
-	apiGroup.GET("/v1.0/cell/filters/:who/:type/:area/:extra",
+	apiGroup := router.Group("v1.0")
+	apiGroup.GET("/:sheet_name/:start_column/:start_row/:end_column/:end_row",
 		handlers.GetCellsHandler.Handler,
 	)
 	apiGroup.GET("/ping",

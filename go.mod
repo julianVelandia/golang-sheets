@@ -6,6 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.8.1
 	golang.org/x/oauth2 v0.0.0-20221006150949-b44042a4b9c1
 	google.golang.org/api v0.98.0
+	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
 )
 
 require (

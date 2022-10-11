@@ -15,7 +15,7 @@ func NewHandler() *Handler {
 
 func (h Handler) Handler(ginCTX *gin.Context) {
 	pong := contract.Pong{
-		Message: "Eureka Pong",
+		Message: "golang sheets Pong",
 	}
 	ginCTX.JSON(http.StatusOK, pong)
 }
