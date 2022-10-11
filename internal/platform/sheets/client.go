@@ -7,7 +7,7 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/option"
-	sheets "google.golang.org/api/sheets/v4"
+	"google.golang.org/api/sheets/v4"
 	"log"
 	"os"
 

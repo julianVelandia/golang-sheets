@@ -18,11 +18,10 @@ const (
 )
 
 type RepositoryRead interface {
-	GetByQuery(ctx context.Context, queryValue string) ([]string, error)
+	GetByQuery(ctx context.Context, queryValue string) ([]entity.Cell, error)
 }
 
-//TODO armar y ddevolver la entidad o moddelo (mirar que no rompa la arqu)
-
+// TODO armar y ddevolver la entidad o moddelo (mirar que no rompa la arqu)
 type Mapper interface {
 	ReadToEntities(ctx context.Context, information []string) []entity.Cell
 }
