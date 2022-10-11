@@ -3,6 +3,8 @@ package cell
 import (
 	"context"
 	"fmt"
+	"github.com/julianVelandia/golang-sheets/internal/cell/core/query"
+	"github.com/julianVelandia/golang-sheets/internal/platform/sheets/model"
 
 	ErrorUseCase "github.com/julianVelandia/golang-sheets/internal/cell/core/error"
 	"github.com/julianVelandia/golang-sheets/internal/platform/constant"
@@ -19,8 +21,6 @@ const (
 	layer               string          = "use_case_get_Cells"
 )
 
-//TODO Leer el spreatsheetIDD desde path
-
 type RepositoryClient struct {
 	client sheet.Client
 }
@@ -29,7 +29,7 @@ func NewRepositoryClient(client sheet.Client) *RepositoryClient {
 	return &RepositoryClient{client: client}
 }
 
-func (rc RepositoryClient) GetByQuery(ctx context.Context, queryValue string) ([]string, error) {
+func (rc RepositoryClient) GetByQuery(ctx context.Context, queryValue query.GetCells) ([]model.Cell, error) {
 
 	item, errReadClient := rc.client.Read(ctx, pathCredentials, pathSpreadsheetID, queryValue)
 
@@ -41,7 +41,7 @@ func (rc RepositoryClient) GetByQuery(ctx context.Context, queryValue string) ([
 						`%s_%s_%s`,
 						pathCredentials,
 						pathSpreadsheetID,
-						queryValue,
+						queryValue.Value(),
 					),
 					constant.EntityType: entityType,
 				}))

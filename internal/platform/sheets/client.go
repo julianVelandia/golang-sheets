@@ -12,8 +12,11 @@ import (
 	"os"
 
 	ErrorUseCase "github.com/julianVelandia/golang-sheets/internal/cell/core/error"
+	"github.com/julianVelandia/golang-sheets/internal/cell/core/query"
 	"github.com/julianVelandia/golang-sheets/internal/platform/constant"
 	logPlatform "github.com/julianVelandia/golang-sheets/internal/platform/log"
+	"github.com/julianVelandia/golang-sheets/internal/platform/number"
+	"github.com/julianVelandia/golang-sheets/internal/platform/sheets/model"
 )
 
 const (
@@ -27,6 +30,10 @@ const (
 )
 
 type Client struct{}
+
+type SpreadsheetID struct {
+	SpreadsheetID string `json:"spreadsheet_id"`
+}
 
 func (c *Client) getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 	authURL := config.AuthCodeURL("state-token", oauth2.AccessTypeOffline)
@@ -78,36 +85,43 @@ func (c *Client) saveToken(path string, token *oauth2.Token) {
 	json.NewEncoder(f).Encode(token)
 }
 
-func (c *Client) Read(ctx context.Context, path, spreadsheetId, readRange string) ([]string, error) {
-	b, err := os.ReadFile(path)
-	if err != nil {
+func (c *Client) Read(ctx context.Context, credentialsPath, spreadsheetIDPath string, readRange query.GetCells) ([]model.Cell, error) {
+	credentialsRead, errCredentials := os.ReadFile(credentialsPath)
+	spreadsheetIDRead, errSpreadsheet := os.ReadFile(spreadsheetIDPath)
+
+	if errCredentials != nil || errSpreadsheet != nil {
 		message := errorRead.GetMessageWithTagParams(
 			logPlatform.NewTagParams(layer, actionUnableToReadClient,
 				logPlatform.Params{
 					constant.Key: fmt.Sprintf(
 						`%s_%s_%s`,
-						path,
-						spreadsheetId,
-						readRange,
+						credentialsRead,
+						spreadsheetIDRead,
+						readRange.Value(),
 					),
 					constant.EntityType: entityType,
 				}))
+
+		err := errSpreadsheet
+		if errCredentials != nil {
+			err = errCredentials
+		}
 		return nil, ErrorUseCase.FailedQueryValue{
 			Message: message,
 			Err:     err,
 		}
 	}
 
-	config, err := google.JWTConfigFromJSON(b, "https://www.googleapis.com/auth/spreadsheets")
+	config, err := google.JWTConfigFromJSON(credentialsRead, "https://www.googleapis.com/auth/spreadsheets")
 	if err != nil {
 		message := errorRead.GetMessageWithTagParams(
 			logPlatform.NewTagParams(layer, actionUnableToParseSecretFile,
 				logPlatform.Params{
 					constant.Key: fmt.Sprintf(
 						`%s_%s_%s`,
-						path,
-						spreadsheetId,
-						readRange,
+						credentialsRead,
+						spreadsheetIDRead,
+						readRange.Value(),
 					),
 					constant.EntityType: entityType,
 				}))
@@ -126,9 +140,9 @@ func (c *Client) Read(ctx context.Context, path, spreadsheetId, readRange string
 				logPlatform.Params{
 					constant.Key: fmt.Sprintf(
 						`%s_%s_%s`,
-						path,
-						spreadsheetId,
-						readRange,
+						credentialsRead,
+						spreadsheetIDRead,
+						readRange.Value(),
 					),
 					constant.EntityType: entityType,
 				}))
@@ -138,16 +152,18 @@ func (c *Client) Read(ctx context.Context, path, spreadsheetId, readRange string
 		}
 	}
 
-	resp, err := srv.Spreadsheets.Values.Get(spreadsheetId, readRange).Do()
+	spreadsheetID := SpreadsheetID{}
+	json.Unmarshal(spreadsheetIDRead, &spreadsheetID)
+	resp, err := srv.Spreadsheets.Values.Get(spreadsheetID.SpreadsheetID, readRange.Value()).Do()
 	if err != nil {
 		message := errorRead.GetMessageWithTagParams(
 			logPlatform.NewTagParams(layer, actionUnableRetrieve,
 				logPlatform.Params{
 					constant.Key: fmt.Sprintf(
 						`%s_%s_%s`,
-						path,
-						spreadsheetId,
-						readRange,
+						credentialsRead,
+						spreadsheetIDRead,
+						readRange.Value(),
 					),
 					constant.EntityType: entityType,
 				}))
@@ -163,9 +179,9 @@ func (c *Client) Read(ctx context.Context, path, spreadsheetId, readRange string
 				logPlatform.Params{
 					constant.Key: fmt.Sprintf(
 						`%s_%s_%s`,
-						path,
-						spreadsheetId,
-						readRange,
+						credentialsRead,
+						spreadsheetIDRead,
+						readRange.Value(),
 					),
 					constant.EntityType: entityType,
 				}))
@@ -174,10 +190,18 @@ func (c *Client) Read(ctx context.Context, path, spreadsheetId, readRange string
 			Err:     err,
 		}
 	} else {
-		response := make([]string, 0)
+
+		response := make([]model.Cell, 0)
+		currentRow := readRange.StartRow
+		currentColumn := readRange.StartColumn
 		for _, row := range resp.Values {
-			for _, col := range row {
-				response = append(response, fmt.Sprintf("%v", col))
+			for _, val := range row {
+				response = append(response, model.Cell{
+					CellPosition: fmt.Sprintf("%v%v", currentColumn, currentRow),
+					Information:  fmt.Sprintf("%v", val),
+				})
+				currentColumn = number.UpdateChar(currentColumn)
+				currentRow++
 			}
 		}
 		return response, nil

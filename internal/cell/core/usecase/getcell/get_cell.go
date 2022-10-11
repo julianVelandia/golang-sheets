@@ -8,6 +8,7 @@ import (
 	"github.com/julianVelandia/golang-sheets/internal/cell/core/query"
 	"github.com/julianVelandia/golang-sheets/internal/platform/constant"
 	"github.com/julianVelandia/golang-sheets/internal/platform/log"
+	"github.com/julianVelandia/golang-sheets/internal/platform/sheets/model"
 )
 
 const (
@@ -18,25 +19,28 @@ const (
 )
 
 type RepositoryRead interface {
-	GetByQuery(ctx context.Context, queryValue string) ([]entity.Cell, error)
+	GetByQuery(ctx context.Context, queryValue query.GetCells) ([]model.Cell, error)
 }
 
-// TODO armar y ddevolver la entidad o moddelo (mirar que no rompa la arqu)
 type Mapper interface {
-	ReadToEntities(ctx context.Context, information []string) []entity.Cell
+	ReadToEntities(information []model.Cell) []entity.Cell
 }
 
 type UseCase struct {
 	repositoryRead RepositoryRead
+	mapper         Mapper
 }
 
-func NewUseCase(repositoryRead RepositoryRead) UseCase {
-	return UseCase{repositoryRead: repositoryRead}
+func NewUseCase(repositoryRead RepositoryRead, mapper Mapper) UseCase {
+	return UseCase{
+		repositoryRead: repositoryRead,
+		mapper:         mapper,
+	}
 }
 
 func (uc UseCase) Execute(ctx context.Context, GetCells query.GetCells) ([]entity.Cell, error) {
 
-	Cell, err := uc.repositoryRead.GetByQuery(ctx, GetCells.Value())
+	Cell, err := uc.repositoryRead.GetByQuery(ctx, GetCells)
 
 	if err != nil {
 		message := errorReadRepository.GetMessageWithTagParams(
@@ -55,5 +59,5 @@ func (uc UseCase) Execute(ctx context.Context, GetCells query.GetCells) ([]entit
 		}
 	}
 
-	return Cell, nil
+	return uc.mapper.ReadToEntities(Cell), nil
 }
