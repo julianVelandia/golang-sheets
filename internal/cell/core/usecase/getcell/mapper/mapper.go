@@ -7,7 +7,7 @@ import (
 
 type Mapper struct{}
 
-func (m Mapper) ReadToEntities(information []model.Cell) []entity.Cell {
+func (m Mapper) ModelToEntities(information []model.Cell) []entity.Cell {
 	response := make([]entity.Cell, len(information))
 	for i := range information {
 		response[i] = entity.Cell{

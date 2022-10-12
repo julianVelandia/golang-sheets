@@ -23,7 +23,7 @@ type RepositoryRead interface {
 }
 
 type Mapper interface {
-	ReadToEntities(information []model.Cell) []entity.Cell
+	ModelToEntities(information []model.Cell) []entity.Cell
 }
 
 type UseCase struct {
@@ -40,7 +40,7 @@ func NewUseCase(repositoryRead RepositoryRead, mapper Mapper) UseCase {
 
 func (uc UseCase) Execute(ctx context.Context, GetCells query.GetCells) ([]entity.Cell, error) {
 
-	Cell, err := uc.repositoryRead.GetByQuery(ctx, GetCells)
+	cell, err := uc.repositoryRead.GetByQuery(ctx, GetCells)
 
 	if err != nil {
 		message := errorReadRepository.GetMessageWithTagParams(
@@ -59,5 +59,5 @@ func (uc UseCase) Execute(ctx context.Context, GetCells query.GetCells) ([]entit
 		}
 	}
 
-	return uc.mapper.ReadToEntities(Cell), nil
+	return uc.mapper.ModelToEntities(cell), nil
 }
