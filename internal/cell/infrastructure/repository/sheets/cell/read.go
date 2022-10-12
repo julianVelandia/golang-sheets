@@ -9,7 +9,6 @@ import (
 	ErrorUseCase "github.com/julianVelandia/golang-sheets/internal/cell/core/error"
 	"github.com/julianVelandia/golang-sheets/internal/platform/constant"
 	"github.com/julianVelandia/golang-sheets/internal/platform/log"
-	sheet "github.com/julianVelandia/golang-sheets/internal/platform/sheets"
 )
 
 const (
@@ -21,15 +20,19 @@ const (
 	layer               string          = "use_case_get_Cells"
 )
 
-type RepositoryClient struct {
-	client sheet.Client
+type ClientSheets interface {
+	Read(ctx context.Context, credentialsPath, spreadsheetIDPath string, readRange query.GetCells) ([]model.Cell, error)
 }
 
-func NewRepositoryClient(client sheet.Client) *RepositoryClient {
-	return &RepositoryClient{client: client}
+type SheetsRepository struct {
+	client ClientSheets
 }
 
-func (rc RepositoryClient) GetByQuery(ctx context.Context, queryValue query.GetCells) ([]model.Cell, error) {
+func NewSheetsRepository(client ClientSheets) SheetsRepository {
+	return SheetsRepository{client: client}
+}
+
+func (rc SheetsRepository) GetByQuery(ctx context.Context, queryValue query.GetCells) ([]model.Cell, error) {
 
 	item, errReadClient := rc.client.Read(ctx, pathCredentials, pathSpreadsheetID, queryValue)
 

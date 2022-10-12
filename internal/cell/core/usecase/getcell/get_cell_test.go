@@ -3,12 +3,13 @@ package getcell_test
 import (
 	"context"
 	"errors"
+	"testing"
+
 	"github.com/julianVelandia/golang-sheets/internal/cell/core/entity"
 	"github.com/julianVelandia/golang-sheets/internal/cell/core/query"
 	"github.com/julianVelandia/golang-sheets/internal/cell/core/usecase/getcell"
 	"github.com/julianVelandia/golang-sheets/internal/platform/sheets/model"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 const (
@@ -24,9 +25,9 @@ const (
 )
 
 func TestExecuteWhenGetCellsSuccessfullyShouldReturnSuccess(t *testing.T) {
+	ctx := context.TODO()
 	repositoryReadMock := new(RepositoryReadMock)
 	mapperMock := new(MapperMock)
-	ctx := context.TODO()
 	queryGetCell := givenQuery()
 	models := givenModels()
 	entitiesCell := givenEntities()
@@ -43,8 +44,8 @@ func TestExecuteWhenGetCellsSuccessfullyShouldReturnSuccess(t *testing.T) {
 }
 
 func TestExecuteWhenGetCellsFailShouldReturnError(t *testing.T) {
-	repositoryReadMock := new(RepositoryReadMock)
 	ctx := context.TODO()
+	repositoryReadMock := new(RepositoryReadMock)
 	queryGetCell := givenQuery()
 	errorReadRepository := errors.New(
 		"error in the use case, when read repository layer:use_case_get_Cells " +

@@ -17,8 +17,8 @@ type HandlerContainer struct {
 }
 
 func NewWire() HandlerContainer {
-	sheetsClients := sheets.Client{}
-	repository := repositoryRead.NewRepositoryClient(sheetsClients)
+	sheetsClients := sheets.ClientSheets{}
+	repository := repositoryRead.NewSheetsRepository(sheetsClients)
 	mapperUseCase := useCaseMapperCells.Mapper{}
 	useCaseGetCell := useCaseCells.NewUseCase(repository, mapperUseCase)
 	return HandlerContainer{

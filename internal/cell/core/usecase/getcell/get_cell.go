@@ -3,6 +3,7 @@ package getcell
 import (
 	"context"
 	"fmt"
+
 	"github.com/julianVelandia/golang-sheets/internal/cell/core/entity"
 	ErrorUseCase "github.com/julianVelandia/golang-sheets/internal/cell/core/error"
 	"github.com/julianVelandia/golang-sheets/internal/cell/core/query"
