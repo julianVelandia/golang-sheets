@@ -35,7 +35,7 @@ type SpreadsheetID struct {
 	SpreadsheetID string `json:"spreadsheet_id"`
 }
 
-func (c *ClientSheets) getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
+func (c ClientSheets) getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 	authURL := config.AuthCodeURL("state-token", oauth2.AccessTypeOffline)
 	fmt.Printf("Go to the following link in your browser then type the "+
 		"authorization code: \n%v\n", authURL)
@@ -52,7 +52,7 @@ func (c *ClientSheets) getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 	return tok
 }
 
-func (c *ClientSheets) tokenFromFile(file string) (*oauth2.Token, error) {
+func (c ClientSheets) tokenFromFile(file string) (*oauth2.Token, error) {
 	f, err := os.Open(file)
 	if err != nil {
 		message := errorRead.GetMessageWithTagParams(
@@ -75,7 +75,7 @@ func (c *ClientSheets) tokenFromFile(file string) (*oauth2.Token, error) {
 	return tok, err
 }
 
-func (c *ClientSheets) saveToken(path string, token *oauth2.Token) {
+func (c ClientSheets) saveToken(path string, token *oauth2.Token) {
 	fmt.Printf("Saving credential file to: %s\n", path)
 	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
 	if err != nil {
@@ -85,7 +85,7 @@ func (c *ClientSheets) saveToken(path string, token *oauth2.Token) {
 	json.NewEncoder(f).Encode(token)
 }
 
-func (c *ClientSheets) Read(ctx context.Context, credentialsPath, spreadsheetIDPath string, readRange query.GetCells) ([]model.Cell, error) {
+func (c ClientSheets) Read(ctx context.Context, credentialsPath, spreadsheetIDPath string, readRange query.GetCells) ([]model.Cell, error) {
 	credentialsRead, errCredentials := os.ReadFile(credentialsPath)
 	spreadsheetIDRead, errSpreadsheet := os.ReadFile(spreadsheetIDPath)
 
