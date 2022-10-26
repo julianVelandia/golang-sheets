@@ -40,8 +40,16 @@ Google sheets API made with golang
       "information": "Cell A1 Information"
     },
     {
-      "cell_position": "A1",
-      "information": "Cell A1 Information"
+      "cell_position": "A2",
+      "information": "Cell A2 Information"
+    },
+    {
+      "cell_position": "B1",
+      "information": "Cell B1 Information"
+    },
+    {
+      "cell_position": "B2",
+      "information": "Cell B2 Information"
     }
   ]
 }
